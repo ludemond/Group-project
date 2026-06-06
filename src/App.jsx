@@ -1,8 +1,10 @@
-import Navbar from "./components/navbar";
-import Home from "./pages/home";
-import Footer from "./components/footer";
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import Footer from "./components/Footer";
 import MovieList from "./components/MovieList";
 import "./App.css";
+import MovieDetails from "./pages/MovieDetails";
+
 
 function App() {
     const localMovies = [
@@ -15,6 +17,7 @@ function App() {
             <Navbar />
             <Home />
             <MovieList moviesList={localMovies} />
+            <MovieDetails />
             <Footer />
         </>
     );
