@@ -8,16 +8,9 @@ function MovieList({ moviesList, onDeleteMovie, onChangeStatus }) {
   }
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div className="app-container">
       <h2>My Watchlist</h2>
-      
-      {/* Layout grid to arrange cards nicely */}
-      <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', 
-        gap: '15px' 
-      }}>
-        {/* Using .map() to display movies */}
+      <div className="movie-grid">
         {moviesList.map((singleMovie) => (
           <MovieCard 
             key={singleMovie.id} 

@@ -6,13 +6,11 @@ function MovieFilter({
   onChange,
 }) {
   return (
-    <div style={{ padding: '8px' }}>
-      <label htmlFor="genre-select">
-        <h3>Filter Movies</h3>
-      </label>
-
+    <div className="filter-bar">
+      <h3 style={{ margin: 0 }}>Filter</h3>
       <select
         id="genre-select"
+        className="filter-select"
         value={selectedGenre}
         onChange={(e) => onChange && onChange(e.target.value)}
       >
