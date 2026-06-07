@@ -4,7 +4,8 @@ import Home from "./pages/Home";
 import Footer from "./components/Footer";
 import MovieList from "./components/MovieList";
 import "./App.css";
-
+import MovieForm from "./components/MovieForm";
+import MovieDetails from "./pages/MovieDetails";
 function App() {
     const [movies, setMovies] = useState([
     { id: 1, title: 'Inception', year: '2010', rating: '8.8', status: 'Watched' },
@@ -23,7 +24,9 @@ return (
         <>
             <Navbar />
             <Home />
+            <MovieForm onAddMovie={addMovie} />
             <MovieList moviesList={movies} />
+            <MovieDetails movie={movies[0]} />
             <Footer />
         </>
     );
