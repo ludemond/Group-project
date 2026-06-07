@@ -6,6 +6,7 @@ import MovieList from "./components/MovieList";
 import "./App.css";
 import MovieForm from "./components/MovieForm";
 import MovieDetails from "./pages/MovieDetails";
+import MovieFilter from "./components/MovieFilter";
 function App() {
     const [movies, setMovies] = useState([
     { id: 1, title: 'Inception', year: '2010', rating: '8.8', status: 'Watched' },
@@ -20,12 +21,21 @@ function App() {
     ]);
   };
 
+  const updateMovieStatus = (id, newStatus) => {
+    setMovies((prev) => prev.map(m => m.id === id ? { ...m, status: newStatus } : m));
+  };
+
+  const deleteMovie = (id) => {
+    setMovies((prev) => prev.filter(m => m.id !== id));
+  };
+
 return (
         <>
             <Navbar />
             <Home />
             <MovieForm onAddMovie={addMovie} />
-            <MovieList moviesList={movies} />
+            <MovieFilter /> 
+            <MovieList moviesList={movies} onDeleteMovie={deleteMovie} onChangeStatus={updateMovieStatus} />
             <MovieDetails movie={movies[0]} />
             <Footer />
         </>

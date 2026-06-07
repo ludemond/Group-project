@@ -1,7 +1,7 @@
 import React from "react"
 import { useState } from "react"
 
-const EMPTY_FORM = {title:"",year:"",rating:"",status:"Plan to watch",};
+const EMPTY_FORM = {title:"",year:"",rating:"",status:"Plan to Watch", poster:"", genre:"", description:""};
 
 function MovieForm({onAddMovie}){
 const [form,setForm]=useState(EMPTY_FORM);
