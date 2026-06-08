@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
@@ -11,13 +11,42 @@ import MovieForm from "./components/MovieForm";
 import MovieFilter from "./components/MovieFilter";
 
 function App() {
-  const [movies, setMovies] = useState([
-    { id: 1, title: 'Inception', year: '2010', rating: '8.8', status: 'Watched', genre: 'comedy' },
-    { id: 2, title: 'Interstellar', year: '2014', rating: '8.6', status: 'Plan to Watch', genre: 'drama' },
-    { id: 3, title: 'The Dark Knight', year: '2008', rating: '9.0', status: 'Watched', genre: 'action' }
-  ]);
+  const [movies, setMovies] = useState(() => {
+    try {
+      const raw = localStorage.getItem('movies');
+      if (raw) return JSON.parse(raw);
+    } catch (e) {
+      // ignore parse errors
+    }
+    return [
+      { id: 1, title: 'Inception', year: '2010', rating: '8.8', status: 'Watched', genre: 'comedy' },
+      { id: 2, title: 'Interstellar', year: '2014', rating: '8.6', status: 'Plan to Watch', genre: 'drama' },
+      { id: 3, title: 'The Dark Knight', year: '2008', rating: '9.0', status: 'Watched', genre: 'action' }
+    ];
+  });
 
   const [selectedGenre, setSelectedGenre] = useState('All Genres');
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('movies', JSON.stringify(movies));
+    } catch (e) {
+      // ignore storage errors
+    }
+  }, [movies]);
+
+  useEffect(() => {
+    try {
+      const g = localStorage.getItem('selectedGenre');
+      if (g) setSelectedGenre(g);
+    } catch (e) {}
+  }, []);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('selectedGenre', selectedGenre);
+    } catch (e) {}
+  }, [selectedGenre]);
 
   const addMovie = (newMovie) => {
     setMovies((prev) => [
