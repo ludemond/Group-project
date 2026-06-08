@@ -1,7 +1,7 @@
 import React from "react"
 import { useState } from "react"
 
-const EMPTY_FORM = {title:"",year:"",rating:"",status:"Plan to Watch", genre:""};
+const EMPTY_FORM = {title:"",year:"",rating:"",status:"Plan to Watch", genre:"", poster:"", images:"", description:""};
 
 function MovieForm({onAddMovie}){
 const [form,setForm]=useState(EMPTY_FORM);
@@ -27,7 +27,12 @@ const[errors,setErrors]=useState({});
     const errs = validate();
     if (Object.keys(errs).length > 0) return setErrors(errs);
 
-    onAddMovie(form);
+    const payload = {
+      ...form,
+      images: form.images ? form.images.split(',').map(s => s.trim()).filter(Boolean) : [],
+    };
+
+    onAddMovie(payload);
     setForm(EMPTY_FORM);
     setErrors({});
   };
@@ -64,6 +69,16 @@ const[errors,setErrors]=useState({});
             <input className="form-input" name="genre" value={form.genre} onChange={handleChange} placeholder="e.g. Action" style={inputStyle("genre")} />
           </div>
 
+          <div>
+            <label style={{ fontSize: "14px", fontWeight: "600" }}>Poster Image URL</label>
+            <input className="form-input" name="poster" value={form.poster} onChange={handleChange} placeholder="https://example.com/poster.jpg" style={inputStyle("poster")} />
+          </div>
+
+          <div>
+            <label style={{ fontSize: "14px", fontWeight: "600" }}>Additional Images (comma-separated)</label>
+            <input className="form-input" name="images" value={form.images} onChange={handleChange} placeholder="url1, url2, url3" style={inputStyle("images")} />
+          </div>
+
           
 
           <div>
@@ -76,6 +91,11 @@ const[errors,setErrors]=useState({});
           </div>
         </div>
 
+
+        <div style={{ marginTop: 12 }}>
+          <label style={{ fontSize: "14px", fontWeight: "600" }}>Description</label>
+          <textarea className="form-textarea" name="description" value={form.description} onChange={handleChange} placeholder="Short description of the movie" style={inputStyle("description")}></textarea>
+        </div>
 
         <div style={{ marginTop: 12 }}>
           <button type="submit" className="primary-btn">+ Add to Watchlist</button>

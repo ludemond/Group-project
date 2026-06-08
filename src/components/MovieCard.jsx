@@ -11,6 +11,14 @@ function MovieCard({ movie, onDelete, onStatusChange }) {
         <img src={movie.poster} alt={movie.title} />
       )}
 
+      {movie.images && movie.images.length > 0 && (
+        <div className="image-gallery" style={{ marginTop: 8 }}>
+          {movie.images.map((src, idx) => (
+            <img key={idx} src={src} alt={`${movie.title} ${idx+1}`} className="image-thumb" />
+          ))}
+        </div>
+      )}
+
       <h3>{movie.title}</h3>
 
       <p className="muted"><strong>Year:</strong> {movie.year || 'N/A'}</p>
